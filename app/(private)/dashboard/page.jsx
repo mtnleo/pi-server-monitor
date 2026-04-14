@@ -3,6 +3,8 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 
+import { StateView } from "@/components/ui/state_view";
+
 import client from "@/api/client";
 
 const Dashboard = () => {
@@ -19,6 +21,9 @@ const Dashboard = () => {
                 <p className="text-xs font-medium tracking-[0.18em] text-muted-foreground uppercase">Overview</p>
                 <h1 className="mt-2 text-3xl font-semibold tracking-tight text-foreground">Dashboard</h1>
                 <p className="mt-2 text-sm text-muted-foreground">You are signed in and ready to monitor your server.</p>
+
+                <StateView />
+
                 <div className="mt-6">
                     <Button onClick={handleSignOut}>
                         Sign Out
