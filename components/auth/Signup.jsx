@@ -40,7 +40,7 @@ const Signup = () => {
         }
     };
 
-    return <Card>
+    return <Card className="border border-border/70 bg-card/70 shadow-xl shadow-black/25 backdrop-blur">
         <CardHeader>
             <CardTitle>Signup</CardTitle>
             <CardDescription>Enter email and password to sign up</CardDescription>
@@ -55,7 +55,7 @@ const Signup = () => {
                     <Label htmlFor="password">Password</Label>
                     <Input id="password" type="password" required placeholder="Enter your password" />
                 </div>
-                <Button type="submit" className="w-full">Sign Up</Button>
+                <Button type="submit" className="mt-1 w-full">Sign Up</Button>
             </form>
         </CardContent>
     </Card>
