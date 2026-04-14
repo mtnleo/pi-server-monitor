@@ -1,16 +1,18 @@
 import { NextResponse } from "next/server";
 
-import { fetchServerState } from "@/api/data_fetch";
+import { dataProcess } from "@/api/data_process";
 
 export async function GET() {
-  const data = await fetchServerState();
+  const data = await dataProcess();
+
+  const  { serverStatus, lastTemperature, averageTemperature }  = data || {};
 
   if (!data) {
     return NextResponse.json(
-      { ok: false, error: "Unable to fetch server state" },
+      { ok: false, error: "Unable to process server state" },
       { status: 500 }
     );
   }
 
-  return NextResponse.json({ ok: true, data }, { status: 200 });
+  return NextResponse.json({ ok: true, serverStatus, lastTemperature, averageTemperature }, { status: 200 });
 }
