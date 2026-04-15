@@ -19,7 +19,7 @@ const PrivatePagesLayout = ({children}) => {
     if (loading || !user) return null;
 
     return (
-        <main className="mx-auto min-h-screen w-full max-w-6xl px-4 py-6 sm:px-8 sm:py-10 lg:py-12">
+        <main className="flex items-center mx-auto min-h-screen w-full max-w-6xl px-4 py-6 sm:px-8 sm:py-10 lg:py-12">
             <div className="w-full rounded-3xl border border-border/70 bg-card/55 p-6 shadow-2xl shadow-black/30 backdrop-blur-xl sm:p-8 lg:p-10">
                 {children}
             </div>
