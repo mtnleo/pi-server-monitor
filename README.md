@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
 
-First, run the development server:
+# About the Project: Pi-Server Monitor
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+This project is a custom-built, full-stack monitoring solution designed to track the health and status of a **Raspberry Pi 5** acting as a home server (**Homelab**).
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<img width="836" height="624" alt="image" src="https://github.com/user-attachments/assets/7c7f3390-2184-490a-961e-7bb623fa09c7" />
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The main goal is to ensure the server is operational ("alive") and maintaining safe operating temperatures, providing remote access to these metrics from anywhere in the world.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🏗️ Technical Stack
 
-## Learn More
+- **Frontend:** Next.js (App Router) & Tailwind CSS.
+- **Backend as a Service:** Supabase (Database, Auth, and Edge Functions).
+- **Hosting/Infrastructure:** Cloudflare Pages (via OpenNext).
+- **Local Automation:** Bash scripting & Crontab.
 
-To learn more about Next.js, take a look at the following resources:
+## ⚙️ How it Works
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 1. The Heartbeat System (Local)
+The Raspberry Pi runs a **Shell script** every 10 minutes via a **Cron job**. This script:
+- Retrieves the current CPU temperature using system commands.
+- Sends a `POST` request (via `curl`) to the Supabase REST API.
+- Logs a "heartbeat" entry in the database.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 2. Intelligent Alerting (Edge)
+A **Supabase Edge Function** monitors the `heartbeat` table. 
+- It is triggered to check for inactivity. 
+- If no heartbeat is detected for more than **25 minutes**, the system automatically sends an **email alert** notifying that the server is likely down.
 
-## Deploy on Vercel
+### 3. Monitoring Dashboard (Web)
+The Next.js application serves as the command center:
+- **Security:** Protected by **Supabase Auth**, ensuring only the owner can access the metrics.
+- **Data Visualization:** Fetches data from Supabase to display:
+    - Current server status (Online/Offline).
+    - Latest recorded CPU temperature.
+    - Average temperature over the last hour.
+    - Timestamp of the last successful connection.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🧠 Learning Objectives
+This project served as a deep dive into:
+- **Remote Systems Management:** Handling hardware-to-cloud communication.
+- **Serverless Architectures:** Utilizing Edge Functions for proactive monitoring.
+- **Web Optimization:** Deploying Next.js applications on Cloudflare's global network.
+- **Security Best Practices:** Implementing secure authentication and API key management in a Homelab environment.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+*Developed by Martin — Computer Science Student & Developer.*
