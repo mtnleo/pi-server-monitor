@@ -29,6 +29,6 @@ export const dataProcess = async () => {
     // Process the data as needed
     console.log("Processed Data: ", data);
     
-    return { serverStatus, lastTemperature, averageTemperature };
+    return { serverStatus, lastTemperature, averageTemperature, latestBeat };
 
 }

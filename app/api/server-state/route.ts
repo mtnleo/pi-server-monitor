@@ -5,7 +5,7 @@ import { dataProcess } from "@/api/data_process";
 export async function GET() {
   const data = await dataProcess();
 
-  const  { serverStatus, lastTemperature, averageTemperature }  = data || {};
+  const  { serverStatus, lastTemperature, averageTemperature, latestBeat }  = data || {};
 
   if (!data) {
     return NextResponse.json(
@@ -14,5 +14,5 @@ export async function GET() {
     );
   }
 
-  return NextResponse.json({ ok: true, serverStatus, lastTemperature, averageTemperature }, { status: 200 });
+  return NextResponse.json({ ok: true, serverStatus, lastTemperature, averageTemperature, latestBeat }, { status: 200 });
 }
